@@ -1,0 +1,76 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                template="./layout/template.xhtml" >
+
+    <ui:define name="content">
+
+        <h:form>
+
+            <h:messages />
+
+            <h:dataTable var="book" value="#{listBooksPageBean.books}">
+
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="LP." />
+                    </f:facet>
+
+                    <h:outputText value="#{book.id}" />
+                </h:column> 
+
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="Tytuł książki" />
+                    </f:facet>
+
+                    <h:outputText value="#{book.title}" />
+                </h:column> 
+
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="Opis" />
+                    </f:facet>
+                    <h:outputText value="#{book.description}"/>
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="Cena"/>
+                    </f:facet>
+                    <h:outputText id="price" value="#{book.price}">
+                     <f:convertNumber pattern="##.## zł" />
+                    </h:outputText> 
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="Kategoria"/>
+                    </f:facet>
+                    <ui:repeat value="#{book.categories}" var="category">
+                        <h:outputText value="#{category.name}"/><br/>
+                        
+                    </ui:repeat>
+                </h:column>
+
+                <h:column>
+                    <h:link outcome="newBook.xhtml" value="Edytuj " rendered="#{request.isUserInRole('administrators')}">
+                        <f:param name="id" value="#{book.id}" />
+                    </h:link>
+                    <h:commandLink action="#{cartPageBean.add(book)}" value=" Do koszyka"/>
+                </h:column>
+
+                <h:column>
+                    <h:commandLink value="Usuń" rendered="#{request.isUserInRole('administrators')}" action="#{listBooksPageBean.delete(book)}" style="color:#FF0000;"/>
+                </h:column>
+
+            </h:dataTable>
+        </h:form>
+
+    </ui:define>
+
+</ui:composition>

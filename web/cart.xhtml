@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="./layout/template.xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:define name="content">
+        <h:form>
+
+            <h:dataTable value="#{cartPageBean.items}" var="item" style="width: 550px;">
+                <f:facet name="footer">
+                    <h:outputText value="Razem: #{cartPageBean.total}"  /> zł
+                </f:facet>
+
+                <h:column>
+                <f:facet name="header">
+                    <h:outputText value="Tytuł" style="float: left;"/>
+                </f:facet>
+                    #{item.book.title}
+                </h:column>
+                
+                <h:column>
+                <f:facet name="header">
+                    <h:outputText value="Ilość" style="float: left;"/>
+                </f:facet>
+                    #{item.quantity}
+                </h:column>
+                
+                <h:column>
+                 <f:facet name="header">
+                    <h:outputText value="Cena zł" style="float: left;"/>
+                </f:facet>
+                    #{item.book.price}
+                </h:column>
+                <h:column>
+                    <h:commandButton action="#{cartPageBean.remove(item)}" value="Usuń" />
+                </h:column>
+            </h:dataTable>
+        </h:form>
+    </ui:define>
+
+</ui:composition>

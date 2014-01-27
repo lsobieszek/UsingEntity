@@ -1,0 +1,47 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <h:outputStylesheet name="./css/default.css"/>
+        <h:outputStylesheet name="./css/cssLayout.css"/>
+        <title>Facelets Template</title>
+    </h:head>
+
+    <h:body>
+        <f:view>
+
+            <h:form>
+                <h:messages globalOnly="true" />
+
+                <div>
+
+                    <a href="listBooks.xhtml">Spis książek</a>|
+                    |
+                    <a href="listCategory.xhtml">Lista kategorii</a>
+                    <ui:fragment rendered="#{request.isUserInRole('administrators')}">
+                        |
+                        <a href="newCategory.xhtml">Dodaj kategorię</a>
+                        |
+                        <a href="newBook.xhtml">Dodaj książkę</a>
+                    </ui:fragment>
+
+                    |
+                    <a href="cart.xhtml" style="color: #8B4513">Koszyk</a>
+                    |
+                    <h:commandLink action="#{templatePageBean.logout()}" value="Wyloguj #{request.remoteUser}"/>
+                </div>
+            </h:form>
+
+            <div id="content" class="center_content">
+                <ui:insert name="content">Content</ui:insert>
+            </div>
+
+        </f:view>
+    </h:body>
+
+</html>

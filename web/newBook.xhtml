@@ -1,0 +1,56 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                template="./layout/template.xhtml" >
+
+    <f:metadata>
+        <f:viewParam id="id" name="id" value="#{newBookPageBean.id}" />
+    </f:metadata>
+    
+    <ui:define name="content">
+        <h:form>
+
+            <h:panelGrid columns="2">
+                <h:outputText value="Tytuł:" />
+
+                <h:panelGroup>
+                    <h:inputText id="title" value="#{newBookPageBean.book.title}" required="true"
+                                 requiredMessage="Podaj tytuł "/>
+                    <h:message for="title" />
+                </h:panelGroup>
+
+                <h:outputText value="Opis:"/>
+                <h:panelGroup>
+                    <h:inputTextarea id="description" value="#{newBookPageBean.book.description}" required="true"
+                                     requiredMessage="Podaj opis "/>
+                    <h:message for="description" />
+
+                </h:panelGroup>   
+
+                <h:outputText value="Cena [zł]"/>
+                <h:panelGroup>
+                    <h:inputText id="price" value="#{newBookPageBean.book.price}" required="true"
+                                 requiredMessage="Wpisz cenę w zł "/> zł
+                    <h:message for="price" />
+
+                </h:panelGroup>
+                
+                <h:outputText value="Katgoria:" />
+                <h:panelGroup>
+                    <h:selectManyCheckbox value="#{newBookPageBean.categories}">
+                        <f:selectItems value="#{newBookPageBean.allCategories}" var="c"
+                                       itemLabel="#{c.name}" itemValue="#{c.id}" />
+                    </h:selectManyCheckbox>
+                </h:panelGroup>
+            </h:panelGrid>
+
+            <h:inputHidden id="id" value="#{newBookPageBean.book.id}" />
+            
+            <h:commandButton value="Dodaj" action="#{newBookPageBean.save}" />
+        </h:form>
+    </ui:define>
+
+</ui:composition>
